@@ -233,8 +233,8 @@ app.get("/leave/admin", jsonParser, function (req, res, next) {
 
 app.post("/add/leave/admin", jsonParser, function (req, res, next) {
   connection.execute(
-    "SELECT * FROM leaves WHERE subject = ? ",
-    [req.body.subject],
+    "SELECT * FROM leaves WHERE subjects = ? ",
+    [req.body.subjects],
     function (err, results, fields) {
       if (err) {
         console.log(err);
@@ -243,8 +243,8 @@ app.post("/add/leave/admin", jsonParser, function (req, res, next) {
         res.json({ status: "error", messeage: "Leave already registered" });
       } else {
         connection.execute(
-          "INSERT INTO leaves (subject ,limit_m ,limit_y)VALUES (? ,? ,?)",
-          [req.body.subject, req.body.limit_m, req.body.limit_y],
+          "INSERT INTO leaves (subjects ,limit_m ,limit_y)VALUES (? ,? ,?)",
+          [req.body.subjects, req.body.limit_m, req.body.limit_y],
           (err, results) => {
             if (err) {
               console.log(err);
